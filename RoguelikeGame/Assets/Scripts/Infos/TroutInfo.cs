@@ -8,7 +8,7 @@ using System.Collections;
 */
 public class TroutInfo : MonoBehaviour {
 
-    [SerializeField][Header("通行の可否")]
+    [Header("通行の可否")]
     public bool isTraffic;
 
 }
