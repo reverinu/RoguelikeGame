@@ -25,8 +25,17 @@ public class EnemyForwardChecker : MonoBehaviour {
 
     private int nowEnemyPosRow;
     private int nowEnemyPosColumn;
-    private GameObject trout;
-    private GameObject otherEnemy;
+    private GameObject obj;
+
+    public bool hasAll(int direction)
+    {
+        bool hasAll = false;
+        if(hasWall(direction) || hasOtherEnemy(direction) || hasPlayer(direction))
+        {
+            hasAll = true;
+        }
+        return hasAll;
+    }
     
 
     public bool hasWall(int direction)
@@ -38,104 +47,104 @@ public class EnemyForwardChecker : MonoBehaviour {
 
         if (direction == DIRECTIONCHECK.UPRIGHT)
         {
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (direction == DIRECTIONCHECK.UPLEFT)
         {
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (direction == DIRECTIONCHECK.DOWNLEFT)
         {
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (direction == DIRECTIONCHECK.DOWNRIGHT)
         {
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (direction == DIRECTIONCHECK.UP)
         {
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (direction == DIRECTIONCHECK.DOWN)
         {
-            trout = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (direction == DIRECTIONCHECK.LEFT)
         {
-            trout = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (direction == DIRECTIONCHECK.RIGHT)
         {
-            trout = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
@@ -151,110 +160,221 @@ public class EnemyForwardChecker : MonoBehaviour {
 
         if (direction == DIRECTIONCHECK.UPRIGHT)
         {
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
-            otherEnemy = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
         }
         else if (direction == DIRECTIONCHECK.UPLEFT)
         {
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
-            otherEnemy = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
         }
         else if (direction == DIRECTIONCHECK.DOWNLEFT)
         {
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
-            otherEnemy = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
         }
         else if (direction == DIRECTIONCHECK.DOWNRIGHT)
         {
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
-            otherEnemy = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
         }
         else if (direction == DIRECTIONCHECK.UP)
         {
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
         }
         else if (direction == DIRECTIONCHECK.DOWN)
         {
-            otherEnemy = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
         }
         else if (direction == DIRECTIONCHECK.LEFT)
         {
-            otherEnemy = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
         }
         else if (direction == DIRECTIONCHECK.RIGHT)
         {
-            otherEnemy = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
-            if (otherEnemy != null)
+            obj = GameObject.Find("Enemy" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
             {
                 hasOtherEnemy = true;
             }
         }
-
-
         return hasOtherEnemy;
+    }
+
+    public bool hasPlayer(int direction)
+    {
+        bool hasPlayer = false;
+        nowEnemyPosRow = (int)this.transform.position.x;
+        nowEnemyPosColumn = (int)this.transform.position.z;
+
+        if (direction == DIRECTIONCHECK.UPRIGHT)
+        {
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+            obj = GameObject.Find("Player" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+        }
+        else if (direction == DIRECTIONCHECK.UPLEFT)
+        {
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.UP) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+            obj = GameObject.Find("Player" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+        }
+        else if (direction == DIRECTIONCHECK.DOWNLEFT)
+        {
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+            obj = GameObject.Find("Player" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+        }
+        else if (direction == DIRECTIONCHECK.DOWNRIGHT)
+        {
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+            obj = GameObject.Find("Player" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+        }
+        else if (direction == DIRECTIONCHECK.UP)
+        {
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.UP) + "," + nowEnemyPosColumn);
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+        }
+        else if (direction == DIRECTIONCHECK.DOWN)
+        {
+            obj = GameObject.Find("Player" + (nowEnemyPosRow + DIRECTION.DOWN) + "," + nowEnemyPosColumn);
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+        }
+        else if (direction == DIRECTIONCHECK.LEFT)
+        {
+            obj = GameObject.Find("Player" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.LEFT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+        }
+        else if (direction == DIRECTIONCHECK.RIGHT)
+        {
+            obj = GameObject.Find("Player" + nowEnemyPosRow + "," + (nowEnemyPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
+            {
+                hasPlayer = true;
+            }
+        }
+        return hasPlayer;
     }
 }

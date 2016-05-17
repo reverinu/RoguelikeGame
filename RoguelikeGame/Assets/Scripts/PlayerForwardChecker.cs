@@ -16,119 +16,170 @@ public class PlayerForwardChecker : MonoBehaviour {
     }
 
     private GameObject player;
-    private GameObject trout;
+    private GameObject obj;
+
+    public bool hasAll()
+    {
+        bool hasAll = false;
+        if (hasWall() || hasEnemy())
+        {
+            hasAll = true;
+        }
+        return hasAll;
+    }
 
     public bool hasWall()
     {
-        player = GameObject.Find("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
         bool hasWall = false;
         int nowPlayerPosRow = (int)player.transform.position.x;
         int nowPlayerPosColumn = (int)player.transform.position.z;
         
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
         {
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
-            if(!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+            if(!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + nowPlayerPosColumn);
-            if(!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + nowPlayerPosColumn);
+            if(!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow))
         {
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + nowPlayerPosColumn);
-            if(!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + nowPlayerPosColumn);
+            if(!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.LeftArrow))
         {
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + nowPlayerPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + nowPlayerPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.RightArrow))
         {
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + nowPlayerPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + nowPlayerPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
-            trout = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (Input.GetKey(KeyCode.UpArrow) && !(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)))
         {
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + nowPlayerPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.UP) + "," + nowPlayerPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (Input.GetKey(KeyCode.DownArrow) && !(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)))
         {
-            trout = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + nowPlayerPosColumn);
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + nowPlayerPosColumn);
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (Input.GetKey(KeyCode.LeftArrow) && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)))
         {
-            trout = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         else if (Input.GetKey(KeyCode.RightArrow) && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)))
         {
-            trout = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
-            if (!trout.GetComponent<TroutInfo>().isTraffic)
+            obj = GameObject.Find("Trout" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+            if (!obj.GetComponent<TroutInfo>().isTraffic)
             {
                 hasWall = true;
             }
         }
         return hasWall;
+    }
+    private bool hasEnemy()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        bool hasEnemy = false;
+        int nowPlayerPosRow = (int)player.transform.position.x;
+        int nowPlayerPosColumn = (int)player.transform.position.z;
+
+        if (Input.GetKey(KeyCode.UpArrow) && !(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)))
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.UP) + "," + nowPlayerPosColumn);
+            if (obj != null)
+            {
+                hasEnemy = true;
+            }
+        }
+        else if (Input.GetKey(KeyCode.DownArrow) && !(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)))
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + nowPlayerPosColumn);
+            if (obj != null)
+            {
+                hasEnemy = true;
+            }
+        }
+        else if (Input.GetKey(KeyCode.LeftArrow) && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)))
+        {
+            obj = GameObject.Find("Enemy" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+            if (obj != null)
+            {
+                hasEnemy = true;
+            }
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)))
+        {
+            obj = GameObject.Find("Enemy" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
+            {
+                hasEnemy = true;
+            }
+        }
+        return hasEnemy;
     }
 }

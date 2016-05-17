@@ -40,6 +40,8 @@ public class PlayerScript : MonoBehaviour {
     public void SetPlayerObj()
     {
         GameObject playerObj = (GameObject)Instantiate(player, playerPos, Quaternion.identity);
-        playerObj.name = "Player";
+        int row = (int)playerObj.transform.position.x;
+        int column = (int)playerObj.transform.position.z;
+        playerObj.name = "Player" + row +"," + column;
     }
 }

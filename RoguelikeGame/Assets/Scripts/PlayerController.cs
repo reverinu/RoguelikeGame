@@ -86,7 +86,7 @@ public class PlayerController : MonoBehaviour {
         // 斜め移動、上下左右移動
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
         {
-            if(!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasWall())
+            if(!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
             {
                 transform.position += MOVE.UP;
                 transform.position += MOVE.RIGHT;
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow))
         {
-            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasWall())
+            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
             {
                 transform.position += MOVE.UP;
                 transform.position += MOVE.LEFT;
@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.LeftArrow))
         {
-            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasWall())
+            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
             {
                 transform.position += MOVE.DOWN;
                 transform.position += MOVE.LEFT;
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.RightArrow))
         {
-            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasWall())
+            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
             {
                 transform.position += MOVE.DOWN;
                 transform.position += MOVE.RIGHT;
@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetKey(KeyCode.UpArrow) && !(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)))
         {
-            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasWall())
+            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
             {
                 transform.position += MOVE.UP;
             }
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetKey(KeyCode.DownArrow) && !(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)))
         {
-            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasWall())
+            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
             {
                 transform.position += MOVE.DOWN;
             }
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetKey(KeyCode.LeftArrow) && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)))
         {
-            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasWall())
+            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
             {
                 transform.position += MOVE.LEFT;
             }
@@ -146,12 +146,13 @@ public class PlayerController : MonoBehaviour {
         }
         else if (Input.GetKey(KeyCode.RightArrow) && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow)))
         {
-            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasWall())
+            if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
             {
                 transform.position += MOVE.RIGHT;
             }
             SetPlayerRotation(KeyCode.RightArrow);
         }
+        Rename();
         yield return new WaitForSeconds(0.2f);
 
         isRunning = false;
@@ -193,6 +194,13 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    // 移動するたびに名前を変える
+    private void Rename()
+    {
+        int row = (int)this.transform.position.x;
+        int column = (int)this.transform.position.z;
+        this.name = "Player" + row +"," + column;
+    }
     
 
 }
