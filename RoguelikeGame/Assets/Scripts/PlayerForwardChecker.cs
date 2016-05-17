@@ -15,13 +15,9 @@ public class PlayerForwardChecker : MonoBehaviour {
         public static readonly int RIGHT = -1;
     }
 
-    public GameObject player;
-    public GameObject trout;
+    private GameObject player;
+    private GameObject trout;
 
-    void Start()
-    {
-        
-    }
     public bool hasWall()
     {
         player = GameObject.Find("Player");

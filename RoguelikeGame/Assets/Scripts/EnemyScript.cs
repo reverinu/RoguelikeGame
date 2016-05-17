@@ -47,7 +47,7 @@ public class EnemyScript : MonoBehaviour {
                         enemyPos[k] = placeScript.GetComponent<PlaceScript>().placePos[row, column] + DEFAULTPOS;
                         k++;
                     }
-                    if(k == enemyNum - 1)
+                    if(k == enemyNum)
                     {
                         row = PlaceScript.MAX.ROW;
                         break;
@@ -59,10 +59,14 @@ public class EnemyScript : MonoBehaviour {
 
     public void SetEnemyObj()
     {
+        int row;
+        int column;
         for (int i = 0; i < enemyNum; i++)
         {
             GameObject enemyObj = (GameObject)Instantiate(enemyList[ENEMY.BOXSLIME], enemyPos[i], Quaternion.identity);
-            enemyObj.name = "Enemy" + i;
+            row = (int)enemyObj.transform.position.x;
+            column = (int)enemyObj.transform.position.z;
+            enemyObj.name = "Enemy" + row + "," + column;
             enemyObj.transform.parent = this.transform;
         }
     }
