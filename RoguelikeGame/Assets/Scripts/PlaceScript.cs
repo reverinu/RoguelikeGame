@@ -33,7 +33,7 @@ public class PlaceScript: MonoBehaviour {
     
     public int[,] place = new int[MAX.ROW, MAX.COLUMN];
     public Vector3[,] placePos = new Vector3[MAX.ROW, MAX.COLUMN];
-    public static readonly int ROOMNUM = (MAX.ROW * MAX.COLUMN) / ((MAX.ROOMROW + 1) * (MAX.ROOMCOLUMN + 1));
+    public int ROOMNUM = (MAX.ROW * MAX.COLUMN) / ((MAX.ROOMROW + 1) * (MAX.ROOMCOLUMN + 1));
     int row;
     int column;
     int roomRowStart, roomColumnStart;// Room自動生成の時に使う。Room左上の座標
@@ -42,8 +42,7 @@ public class PlaceScript: MonoBehaviour {
     int[] passageColumn = new int[MAX.PASSAGENUM];// Passage開始地点候補のColumn
     int passageNum = 0;
 
-
-
+    public int roomTroutCount = 0;
 
     [SerializeField]
     public List<GameObject> troutList;
@@ -93,6 +92,7 @@ public class PlaceScript: MonoBehaviour {
                 }
                 else if (place[row, column] == TROUT.ROOM)
                 {
+                    roomTroutCount++;// EnemyやItem設置などに使う
                     GameObject troutObj = (GameObject)Instantiate(troutList[TROUT.ROOM], placePos[row, column], Quaternion.identity);
                     troutObj.name = "Trout" + row + "," + column;
                     troutObj.transform.parent = this.transform;

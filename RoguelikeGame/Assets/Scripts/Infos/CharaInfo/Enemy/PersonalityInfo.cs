@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ItemInfo : MonoBehaviour {
+public class PersonalityInfo : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

@@ -17,10 +17,10 @@ public class PlayerActionChecker : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        CheckMoveing();
+        CheckMoving();
 	}
 
-    private void CheckMoveing()
+    private void CheckMoving()
     {
         if (nowPlayerPos != transform.position)
         {

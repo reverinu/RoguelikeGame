@@ -11,6 +11,8 @@ public class SettingManager : MonoBehaviour {
     PlaceScript placeScript;
     [SerializeField]
     PlayerScript playerScript;
+    [SerializeField]
+    EnemyScript enemyScript;
 
 	// Use this for initialization
 	void Start () {
@@ -19,6 +21,7 @@ public class SettingManager : MonoBehaviour {
     public void SetAll() {
         SetTrout();
         SetPlayer();
+        SetEnemy();
     }
 
 	
@@ -32,5 +35,11 @@ public class SettingManager : MonoBehaviour {
     {
         playerScript.GetComponent<PlayerScript>().SetPlayerPos();
         playerScript.GetComponent<PlayerScript>().SetPlayerObj();
+    }
+
+    public void SetEnemy()
+    {
+        enemyScript.GetComponent<EnemyScript>().SetEnemyPos();
+        enemyScript.GetComponent<EnemyScript>().SetEnemyObj();
     }
 }
