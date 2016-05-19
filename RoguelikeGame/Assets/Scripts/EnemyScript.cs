@@ -21,7 +21,7 @@ public class EnemyScript : MonoBehaviour {
 
     public void SetEnemyPos()
     {
-        enemyNum = placeScript.GetComponent<PlaceScript>().ROOMNUM;
+        enemyNum = placeScript.GetComponent<PlaceScript>().roomNum;
         provisionalEnemyPos = new int[enemyNum];
         enemyPos = new Vector3[enemyNum];
         int enemyPosTemp = placeScript.GetComponent<PlaceScript>().roomTroutCount / enemyNum;

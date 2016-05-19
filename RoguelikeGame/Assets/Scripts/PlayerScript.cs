@@ -15,6 +15,8 @@ public class PlayerScript : MonoBehaviour {
     Vector3 playerPos;
 
     public bool isPlayerAction = false;
+    public bool isActRunning = false;
+    public bool isMoveRunning = false;
 
     private static readonly Vector3 DEFAULTPOS = new Vector3(0, 1, 0);
     private int firstPlayerPosRow;
@@ -43,5 +45,6 @@ public class PlayerScript : MonoBehaviour {
         int row = (int)playerObj.transform.position.x;
         int column = (int)playerObj.transform.position.z;
         playerObj.name = "Player" + row +"," + column;
+        playerObj.transform.parent = this.transform;
     }
 }

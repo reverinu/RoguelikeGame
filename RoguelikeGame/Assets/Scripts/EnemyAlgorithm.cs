@@ -30,27 +30,35 @@ public class EnemyAlgorithm : MonoBehaviour {
     EnemyForwardChecker enemyForwardChecker;
     EnemyInfo enemyInfo;
 
+    // プレイヤーの隣
+    private static readonly int PLAYERCLOSER = 1;
+
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerScript = GameObject.Find("Setting").GetComponent<PlayerScript>();
+        playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         actionPatternInfo = this.GetComponent<EnemyInfo>().actionPattern.GetComponent<ActionPatternInfo>();
         enemyForwardChecker = this.GetComponent<EnemyForwardChecker>();
         enemyInfo = this.GetComponent<EnemyInfo>();
     }
 	// Update is called once per frame
 	void Update () {
-        EnemyAction();
         DieEnemy();
+        EnemyAction();
 	}
 
     private void EnemyAction(){
         if(playerScript.GetComponent<PlayerScript>().isPlayerAction)
         {
-            if(MeasurePlayerDistance() <= actionPatternInfo.GetComponent<ActionPatternInfo>().distanceNotice)
+            if (MeasurePlayerDistance() <= actionPatternInfo.GetComponent<ActionPatternInfo>().distanceNotice && MeasurePlayerDistance() > PLAYERCLOSER)
             {
                 Debug.Log("近い！！");
                 HuntAction();
+            }
+            else if (MeasurePlayerDistance() <= PLAYERCLOSER)
+            {
+                AttackAction();
             }
             else
             {
@@ -109,7 +117,8 @@ public class EnemyAlgorithm : MonoBehaviour {
 
     private void AttackAction()
     {
-        
+        // 攻撃計算処理を記入（今は仮）
+        player.GetComponent<PlayerInfo>().hp -= enemyInfo.GetComponent<EnemyInfo>().atk;
     }
 
     private void HuntAction()

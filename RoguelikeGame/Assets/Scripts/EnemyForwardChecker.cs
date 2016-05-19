@@ -358,4 +358,6 @@ public class EnemyForwardChecker : BaseForwardChecker {
         }
         return hasPlayer;
     }
+
+    
 }

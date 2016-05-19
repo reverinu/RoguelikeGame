@@ -11,8 +11,6 @@ public class PlayerController : MonoBehaviour {
         public static readonly Vector3 RIGHT = new Vector3(0, 0, -1);
     }
 
-    private float theta = 0;// Sinで使う
-    
 
     private struct DIRECTIONCHECK
     {
@@ -27,15 +25,17 @@ public class PlayerController : MonoBehaviour {
     }
 
     private GameObject model;
-    private bool isMoveRunning = false;
-    private bool isActionRunning = false;
+    //private bool isMoveRunning = false;
+    //private bool isActionRunning = false;
     private int playerDirection = 0;
 
     PlayerForwardChecker playerForwardCheker;
+    PlayerScript playerScript;
 
     void Start()
     {
         playerForwardCheker = GameObject.Find("Game Manager").GetComponent<PlayerForwardChecker>();
+        playerScript = GameObject.Find("Player").GetComponent<PlayerScript>();
         model = GameObject.FindGameObjectWithTag("ModelTag");
     }
 	
@@ -67,9 +67,8 @@ public class PlayerController : MonoBehaviour {
             {
                 SetPlayerRotation(KeyCode.Q);
             }
-            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.RightArrow))// なんか実行されていない？→連打すると一瞬だけ実行される（？）
+            else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.RightArrow))
             {
-                Debug.Log("CCC???");
                 SetPlayerRotation(KeyCode.C);
             }
             else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.LeftArrow))
@@ -101,37 +100,156 @@ public class PlayerController : MonoBehaviour {
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
+                
                 // エネミーだったら攻撃、アイテムだったら取得処理を実行
                 GameObject enemy = playerForwardCheker.GetComponent<PlayerForwardChecker>().getEnemyObj(playerDirection);
-                if (enemy != null)
+                GameObject item = null;
+                if (enemy != null && !playerScript.GetComponent<PlayerScript>().isActRunning)
                 {
+                    StartCoroutine("iAction");
                     // ここにダメージ計算処理を入れる
                     enemy.GetComponent<EnemyInfo>().hp--;
+                }
+                else if(item != null)
+                {
+
+                }
+                else
+                {
+                    StartCoroutine("iAction");
                 }
             }
         }
     }
+
+    private IEnumerator iAction()
+    {
+        yield return new WaitForSeconds(0.001f);
+        if (playerScript.GetComponent<PlayerScript>().isActRunning)
+            yield break;
+        playerScript.GetComponent<PlayerScript>().isActRunning = true;
+        float pingpong = 0;
+        float playerPosRow = transform.position.x;
+        float playerPosColumn = transform.position.z;
+
+        if(playerDirection == DIRECTIONCHECK.UP)
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                pingpong = (float)i * 0.1f;
+                float nowPlayerPosRow = playerPosRow + Mathf.PingPong(pingpong, 0.5f) * 1f;
+                float nowPlayerPosColumn = playerPosColumn;
+                model.transform.position = new Vector3(nowPlayerPosRow, model.transform.position.y, nowPlayerPosColumn);
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+        else if (playerDirection == DIRECTIONCHECK.DOWN)
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                pingpong = (float)i * 0.1f;
+                float nowPlayerPosRow = playerPosRow + Mathf.PingPong(pingpong, 0.5f) * (-1f);
+                float nowPlayerPosColumn = playerPosColumn;
+                model.transform.position = new Vector3(nowPlayerPosRow, model.transform.position.y, nowPlayerPosColumn);
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+        else if (playerDirection == DIRECTIONCHECK.LEFT)
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                pingpong = (float)i * 0.1f;
+                float nowPlayerPosRow = playerPosRow;
+                float nowPlayerPosColumn = playerPosColumn + Mathf.PingPong(pingpong, 0.5f) * 1f;
+                model.transform.position = new Vector3(nowPlayerPosRow, model.transform.position.y, nowPlayerPosColumn);
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+        else if (playerDirection == DIRECTIONCHECK.RIGHT)
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                pingpong = (float)i * 0.1f;
+                float nowPlayerPosRow = playerPosRow;
+                float nowPlayerPosColumn = playerPosColumn + Mathf.PingPong(pingpong, 0.5f) * (-1f);
+                model.transform.position = new Vector3(nowPlayerPosRow, model.transform.position.y, nowPlayerPosColumn);
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+        else if (playerDirection == DIRECTIONCHECK.UPLEFT)
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                pingpong = (float)i * 0.1f;
+                float nowPlayerPosRow = playerPosRow + Mathf.PingPong(pingpong, 0.5f) * 1f;
+                float nowPlayerPosColumn = playerPosColumn + Mathf.PingPong(pingpong, 0.5f) * 1f;
+                model.transform.position = new Vector3(nowPlayerPosRow, model.transform.position.y, nowPlayerPosColumn);
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+        else if (playerDirection == DIRECTIONCHECK.UPRIGHT)
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                pingpong = (float)i * 0.1f;
+                float nowPlayerPosRow = playerPosRow + Mathf.PingPong(pingpong, 0.5f) * 1f;
+                float nowPlayerPosColumn = playerPosColumn + Mathf.PingPong(pingpong, 0.5f) * (-1f);
+                model.transform.position = new Vector3(nowPlayerPosRow, model.transform.position.y, nowPlayerPosColumn);
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+        else if (playerDirection == DIRECTIONCHECK.DOWNLEFT)
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                pingpong = (float)i * 0.1f;
+                float nowPlayerPosRow = playerPosRow + Mathf.PingPong(pingpong, 0.5f) * (-1f);
+                float nowPlayerPosColumn = playerPosColumn + Mathf.PingPong(pingpong, 0.5f) * 1f;
+                model.transform.position = new Vector3(nowPlayerPosRow, model.transform.position.y, nowPlayerPosColumn);
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+        else if (playerDirection == DIRECTIONCHECK.DOWNRIGHT)
+        {
+            for (int i = 0; i <= 10; i++)
+            {
+                pingpong = (float)i * 0.1f;
+                float nowPlayerPosRow = playerPosRow + Mathf.PingPong(pingpong, 0.5f) * (-1f);
+                float nowPlayerPosColumn = playerPosColumn + Mathf.PingPong(pingpong, 0.5f) * (-1f);
+                model.transform.position = new Vector3(nowPlayerPosRow, model.transform.position.y, nowPlayerPosColumn);
+                yield return new WaitForSeconds(0.001f);
+            }
+        }
+        playerScript.GetComponent<PlayerScript>().isActRunning = false;
+    }
     
     private IEnumerator iContinueMoveing()
     {
-        if (isMoveRunning)
+        if (playerScript.GetComponent<PlayerScript>().isMoveRunning)
             yield break;
-        isMoveRunning = true;
+        playerScript.GetComponent<PlayerScript>().isMoveRunning = true;
 
         // 斜め移動、上下左右移動
         if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
         {
             if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
             {
+                /* 滑らかな動きをやってみたくて実装予定（斜め移動だとなんか後半カクッってなるため調整中）
                 float playerPosRow = transform.position.x;
                 float playerPosColumn = transform.position.z;
 
                 for (int theta = 0; theta <= 10; theta++) 
                 {
-                    float nowPlayerPosRow = playerPosRow + ((float)theta) * 0.1f;
-                    float nowPlayerPosColumn = playerPosColumn + ((float)theta) * (-0.1f);
+                    float nowPlayerPosRow = playerPosRow + Mathf.Lerp(0, 1f, theta * 0.1f);
+                    float nowPlayerPosColumn = playerPosColumn + Mathf.Lerp(0, -1f, theta * 0.1f);
                     transform.position = new Vector3(nowPlayerPosRow, transform.position.y, nowPlayerPosColumn);
                     yield return new WaitForSeconds(0.0000001f);
+                }*/
+
+                if (!playerForwardCheker.GetComponent<PlayerForwardChecker>().hasAll())
+                {
+                    transform.position += MOVE.UP;
+                    transform.position += MOVE.RIGHT;
                 }
             }
             SetPlayerRotation(KeyCode.E);
@@ -196,9 +314,9 @@ public class PlayerController : MonoBehaviour {
             SetPlayerRotation(KeyCode.RightArrow);
         }
         Rename();
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
 
-        isMoveRunning = false;
+        playerScript.GetComponent<PlayerScript>().isMoveRunning = false;
     }
     
     

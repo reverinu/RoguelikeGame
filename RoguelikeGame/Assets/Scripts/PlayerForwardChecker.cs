@@ -8,6 +8,7 @@ using System.Collections;
 public class PlayerForwardChecker : BaseForwardChecker {
     private GameObject player;
     private GameObject obj;
+    
 
     public bool hasAll()
     {
@@ -222,11 +223,11 @@ public class PlayerForwardChecker : BaseForwardChecker {
         }
         else if (direction == DIRECTIONCHECK.DOWNRIGHT)
         {
-            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
         }
         else if (direction == DIRECTIONCHECK.DOWNLEFT)
         {
-            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
         }
         else if (direction == DIRECTIONCHECK.UP)
         {

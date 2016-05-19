@@ -14,13 +14,14 @@ public class PlaceScript: MonoBehaviour {
         public static readonly int COLUMN = 100;
         public static readonly int ROOMROW = 20;
         public static readonly int ROOMCOLUMN = 20;
-        public static readonly int PASSAGENUM = (ROW * COLUMN) / ((ROOMROW + 1) * (ROOMCOLUMN + 1)) * 4;
+        public static readonly int ROOMNUM = (ROW * COLUMN) / ((ROOMROW + 1) * (ROOMCOLUMN + 1));
+        public static readonly int PASSAGENUM = ROOMNUM * 4;
 
     }
     public struct MIN
     {
-        public static readonly int ROOMROW = 5;
-        public static readonly int ROOMCOLUMN = 5;
+        public static readonly int ROOMROW = 10;
+        public static readonly int ROOMCOLUMN = 10;
     }
     public struct TROUT
     {
@@ -33,9 +34,9 @@ public class PlaceScript: MonoBehaviour {
     
     public int[,] place = new int[MAX.ROW, MAX.COLUMN];
     public Vector3[,] placePos = new Vector3[MAX.ROW, MAX.COLUMN];
-    public int ROOMNUM = (MAX.ROW * MAX.COLUMN) / ((MAX.ROOMROW + 1) * (MAX.ROOMCOLUMN + 1));
     int row;
     int column;
+    public int roomNum = 0;// 実際のRoom数（最大数よりもどうしても少なくなる場合がある）
     int roomRowStart, roomColumnStart;// Room自動生成の時に使う。Room左上の座標
     int roomRowEnd, roomColumnEnd;// Room右下の座標
     int[] passageRow = new int[MAX.PASSAGENUM];// Passage開始地点候補のRow
@@ -74,7 +75,6 @@ public class PlaceScript: MonoBehaviour {
         }
         DesideRoom();
         DesidePassage();
-        Debug.Log("a");
     }
 
     public void SetTroutObj()
@@ -123,37 +123,49 @@ public class PlaceScript: MonoBehaviour {
         int distance = 3;// Room間の距離
         
 
-        for (int i = 0; i < ROOMNUM; i++)
+        for (int i = 0; i < MAX.ROOMNUM; i++)
         {
-            while (true)
+            int overlapCheck = 0;
+            int giveUpCount = 0;
+            switch (overlapCheck)
             {
-                int overlapCheck = 0;
-                switch (overlapCheck)
-                {
-                    case 0:
-                        roomRowSize = Random.Range(MIN.ROOMROW, MAX.ROOMROW + 1);
-                        roomColumnSize = Random.Range(MIN.ROOMCOLUMN, MAX.ROOMCOLUMN + 1);
+                case 0:
+                    if (giveUpCount >= 1000)
+                    {
+                        goto case 2;
+                    }
+                    roomRowSize = Random.Range(MIN.ROOMROW, MAX.ROOMROW + 1);
+                    roomColumnSize = Random.Range(MIN.ROOMCOLUMN, MAX.ROOMCOLUMN + 1);
 
-                        roomRowStart = Random.Range(edge, MAX.ROW - roomRowSize - edge);
-                        roomColumnStart = Random.Range(edge, MAX.COLUMN - roomColumnSize - edge);
-                        roomRowEnd = roomRowStart + roomRowSize;
-                        roomColumnEnd = roomColumnStart + roomColumnSize;
-                        goto case 1;
-                    case 1:
-                        for (row = roomRowStart - distance; row < roomRowEnd + distance; row++)
+                    roomRowStart = Random.Range(edge, MAX.ROW - roomRowSize - edge);
+                    roomColumnStart = Random.Range(edge, MAX.COLUMN - roomColumnSize - edge);
+                    roomRowEnd = roomRowStart + roomRowSize;
+                    roomColumnEnd = roomColumnStart + roomColumnSize;
+                    goto case 1;
+                case 1:
+                    for (row = roomRowStart - distance; row < roomRowEnd + distance; row++)
+                    {
+                        for (column = roomColumnStart - distance; column < roomColumnEnd + distance; column++)
                         {
-                            for (column = roomColumnStart - distance; column < roomColumnEnd + distance; column++)
+                            if (place[row, column] == TROUT.ROOM)
                             {
-                                if (place[row, column] == TROUT.ROOM)
-                                {
-                                    goto case 0;
-                                }
+                                giveUpCount++;
+                                goto case 0;
                             }
                         }
-                        goto case 2;
-                    case 2: break;
-                }
+                    }
+                    goto case 2;
+                case 2: break;
+            }
+
+            if(giveUpCount >= 1000)
+            {
+                Debug.Log("giveup!");
                 break;
+            }
+            else
+            {
+                roomNum++;
             }
 
             // Roomの外枠はRoomAreaとして記録
@@ -224,7 +236,7 @@ public class PlaceScript: MonoBehaviour {
         int passage1 = 0;
         int passage2 = 0;
         
-        for(passageCount = 0; passageCount < (MAX.PASSAGENUM / 2); passageCount++)
+        for(passageCount = 0; passageCount < passageNum / 2; passageCount++)
         {
             // Passage候補二つをランダムに決定する
             for (int i = 0; i < 100; i++)
@@ -233,7 +245,7 @@ public class PlaceScript: MonoBehaviour {
                 // 90週してもどうにもならない場合強制的に決める
                 if (i >= 90)
                 {
-                    for (int k = 0; k < MAX.PASSAGENUM / 2; k++)
+                    for (int k = 0; k < passageNum / 2; k++)
                     {
                         if (!hasPassage[k])
                         {
@@ -243,7 +255,7 @@ public class PlaceScript: MonoBehaviour {
                         }
                     }
 
-                    for (int k = MAX.PASSAGENUM / 2; k < MAX.PASSAGENUM; k++)
+                    for (int k = passageNum / 2; k < passageNum; k++)
                     {
                         if (!hasPassage[k])
                         {
@@ -257,8 +269,8 @@ public class PlaceScript: MonoBehaviour {
                 }
                 else if(i < 90)
                 {
-                    passage1 = Random.Range(0, MAX.PASSAGENUM / 2);
-                    passage2 = Random.Range(MAX.PASSAGENUM / 2, MAX.PASSAGENUM);
+                    passage1 = Random.Range(0, passageNum / 2);
+                    passage2 = Random.Range(passageNum / 2, passageNum);
                     if (!(hasPassage[passage1] || hasPassage[passage2]) && passage1 != passage2)
                     {
                         hasPassage[passage1] = true;
@@ -302,6 +314,7 @@ public class PlaceScript: MonoBehaviour {
             switch (passage2 % 4)
             {
                 case 0:
+                    
                     for (row = passageRow[passage2] - 1; row > passageRow[passage2] - 2; row--)
                     {
                         place[row, passageColumn[passage2]] = TROUT.PASSAGEAREA;
