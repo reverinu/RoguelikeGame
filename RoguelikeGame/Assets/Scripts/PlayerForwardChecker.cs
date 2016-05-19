@@ -6,7 +6,6 @@ using System.Collections;
  * 
  */
 public class PlayerForwardChecker : BaseForwardChecker {
-    
     private GameObject player;
     private GameObject obj;
 
@@ -205,5 +204,46 @@ public class PlayerForwardChecker : BaseForwardChecker {
             }
         }
         return hasEnemy;
+    }
+
+    public GameObject getEnemyObj(int direction)
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        int nowPlayerPosRow = (int)player.transform.position.x;
+        int nowPlayerPosColumn = (int)player.transform.position.z;
+
+        if (direction == DIRECTIONCHECK.UPRIGHT)
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.UP) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+        }
+        else if (direction == DIRECTIONCHECK.UPLEFT)
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.UP) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+        }
+        else if (direction == DIRECTIONCHECK.DOWNRIGHT)
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+        }
+        else if (direction == DIRECTIONCHECK.DOWNLEFT)
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+        }
+        else if (direction == DIRECTIONCHECK.UP)
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.UP) + "," + nowPlayerPosColumn);
+        }
+        else if (direction == DIRECTIONCHECK.DOWN)
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + nowPlayerPosColumn);
+        }
+        else if (direction == DIRECTIONCHECK.LEFT)
+        {
+            obj = GameObject.Find("Enemy" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+        }
+        else if (direction == DIRECTIONCHECK.RIGHT)
+        {
+            obj = GameObject.Find("Enemy" + nowPlayerPosRow + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+        }
+        return obj;
     }
 }

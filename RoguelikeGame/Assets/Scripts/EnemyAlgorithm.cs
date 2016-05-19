@@ -28,6 +28,7 @@ public class EnemyAlgorithm : MonoBehaviour {
     PlayerScript playerScript;
     ActionPatternInfo actionPatternInfo;
     EnemyForwardChecker enemyForwardChecker;
+    EnemyInfo enemyInfo;
 
     void Start()
     {
@@ -35,10 +36,12 @@ public class EnemyAlgorithm : MonoBehaviour {
         playerScript = GameObject.Find("Setting").GetComponent<PlayerScript>();
         actionPatternInfo = this.GetComponent<EnemyInfo>().actionPattern.GetComponent<ActionPatternInfo>();
         enemyForwardChecker = this.GetComponent<EnemyForwardChecker>();
+        enemyInfo = this.GetComponent<EnemyInfo>();
     }
 	// Update is called once per frame
 	void Update () {
         EnemyAction();
+        DieEnemy();
 	}
 
     private void EnemyAction(){
@@ -166,6 +169,27 @@ public class EnemyAlgorithm : MonoBehaviour {
             }
         }
         Rename();
+    }
+
+    private void DieEnemy()
+    {
+        if (isEnemyDead())
+        {
+            //enemy死亡時の処理（経験値をプレイヤーに付与する・アイテムを落とす・総エネミー数をマイナスする・オブジェクトを削除する）
+            Destroy(gameObject);
+        }
+    }
+
+
+    private bool isEnemyDead()
+    {
+        bool isDead = false;
+        if (enemyInfo.GetComponent<EnemyInfo>().hp <= 0)
+        {
+            isDead = true;
+        }
+
+        return isDead;
     }
 
     // 名前で位置を取得するため移動するたびに変える

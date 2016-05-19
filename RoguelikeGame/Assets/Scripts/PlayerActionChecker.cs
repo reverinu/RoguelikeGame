@@ -9,10 +9,12 @@ public class PlayerActionChecker : MonoBehaviour {
     
     GameObject playerScript;
     private Vector3 nowPlayerPos;
+    private int playerLine = 0;// 移動後と移動前の直線距離
+    private static readonly int MOVEDISTANCE = 1;
 
     void Start()
     {
-        playerScript = GameObject.FindGameObjectWithTag("Setting");
+        playerScript = GameObject.Find("Setting");
         nowPlayerPos = transform.position;
     }
 	// Update is called once per frame
@@ -22,7 +24,8 @@ public class PlayerActionChecker : MonoBehaviour {
 
     private void CheckMoving()
     {
-        if (nowPlayerPos != transform.position)
+        playerLine = (int)Mathf.Sqrt((transform.position.x - nowPlayerPos.x) * (transform.position.x - nowPlayerPos.x) + (transform.position.z - nowPlayerPos.z) * (transform.position.z - nowPlayerPos.z));
+        if (playerLine >= MOVEDISTANCE)
         {
             playerScript.GetComponent<PlayerScript>().isPlayerAction = true;
             nowPlayerPos = transform.position;
