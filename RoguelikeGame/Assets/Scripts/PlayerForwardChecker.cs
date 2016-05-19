@@ -5,16 +5,8 @@ using System.Collections;
  *　プレイヤーの前方方向に何があるか見て結果を返す機能を保持するスクリプト 
  * 
  */
-public class PlayerForwardChecker : MonoBehaviour {
-
-    private struct DIRECTION
-    {
-        public static readonly int UP = 1;
-        public static readonly int DOWN = -1;
-        public static readonly int LEFT = 1;
-        public static readonly int RIGHT = -1;
-    }
-
+public class PlayerForwardChecker : BaseForwardChecker {
+    
     private GameObject player;
     private GameObject obj;
 
@@ -141,14 +133,46 @@ public class PlayerForwardChecker : MonoBehaviour {
         }
         return hasWall;
     }
-    private bool hasEnemy()
+    public bool hasEnemy()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         bool hasEnemy = false;
         int nowPlayerPosRow = (int)player.transform.position.x;
         int nowPlayerPosColumn = (int)player.transform.position.z;
 
-        if (Input.GetKey(KeyCode.UpArrow) && !(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)))
+        if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.RightArrow))
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.UP) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
+            {
+                hasEnemy = true;
+            }
+        }
+        else if (Input.GetKey(KeyCode.UpArrow) && Input.GetKey(KeyCode.LeftArrow))
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.UP) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+            if (obj != null)
+            {
+                hasEnemy = true;
+            }
+        }
+        else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.LeftArrow))
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.LEFT));
+            if (obj != null)
+            {
+                hasEnemy = true;
+            }
+        }
+        else if (Input.GetKey(KeyCode.DownArrow) && Input.GetKey(KeyCode.RightArrow))
+        {
+            obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.DOWN) + "," + (nowPlayerPosColumn + DIRECTION.RIGHT));
+            if (obj != null)
+            {
+                hasEnemy = true;
+            }
+        }
+        else if (Input.GetKey(KeyCode.UpArrow) && !(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)))
         {
             obj = GameObject.Find("Enemy" + (nowPlayerPosRow + DIRECTION.UP) + "," + nowPlayerPosColumn);
             if (obj != null)
