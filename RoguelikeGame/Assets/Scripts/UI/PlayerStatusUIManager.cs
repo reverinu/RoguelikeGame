@@ -26,6 +26,9 @@ public class PlayerStatusUIManager : MonoBehaviour {
 
     private void UpdateHPText()
     {
-        hpText.GetComponent<Text>().text = "HP:" + player.GetComponent<PlayerInfo>().hp;
+        if (hpText.GetComponent<Text>().text != "HP:" + player.GetComponent<PlayerInfo>().hp)
+        {
+            hpText.GetComponent<Text>().text = "HP:" + player.GetComponent<PlayerInfo>().hp;
+        }
     }
 }
